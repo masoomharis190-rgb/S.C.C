@@ -1,0 +1,1081 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Siddique Construction</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            background: linear-gradient(135deg, #5a7f90, black);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background-color: orange;
+            border-radius: 2px;
+        }
+
+        body {
+            background: #0b0b0b;
+            color: #fff;
+            cursor: none;
+            overflow-x: hidden;
+        }
+
+        /* ===== HEADER & NAV ===== */
+        header {
+            height: 70px;
+            position: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            top: 0;
+            width: 100%;
+            z-index: 10000;
+            padding: 0 50px;
+            background: #000000bb;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 10px 2px rgba(255, 165, 0, 0.3);
+        }
+
+        .logos {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            z-index: 10001;
+            /* Ensure logo is above menu */
+        }
+
+        .logoo {
+            width: 45px;
+            height: 45px;
+        }
+
+        .logos h2 {
+            color: #f4a300;
+            font-size: 24px;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            position: relative;
+            font-weight: 500;
+            transition: 0.3s;
+        }
+
+        nav ul li a:hover {
+            text-shadow: 0 0 10px orange;
+            color: orange;
+        }
+
+        nav ul li a::after {
+            content: '';
+            width: 0;
+            height: 2px;
+            background: #f4a300;
+            position: absolute;
+            left: 0;
+            bottom: -6px;
+            transition: .3s;
+        }
+
+        nav ul li a:hover::after {
+            width: 100%
+        }
+
+        /* Mobile Menu Button */
+        #menuBtn {
+            color: white;
+            font-size: 26px;
+            cursor: pointer;
+            display: none;
+            /* Hidden on desktop */
+            z-index: 10001;
+            transition: 0.3s;
+        }
+
+        #menuBtn:hover {
+            color: #f4a300;
+            transform: scale(1.1);
+        }
+
+        /* ===== HERO ===== */
+        .header {
+            min-height: 100vh;
+            background: linear-gradient(rgba(0, 0, 0, .85), rgba(0, 0, 0, .85)), url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2070&auto=format&fit=crop') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+        }
+
+        .hero {
+            animation: slideUp 1.5s ease;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            color: #f4a300;
+            line-height: 1.2;
+        }
+
+        .hero p {
+            max-width: 600px;
+            line-height: 1.8;
+            color: #ddd;
+            margin: 20px 0;
+        }
+
+        .btn {
+            padding: 14px 40px;
+            background: #f4a300;
+            border: none;
+            font-weight: bold;
+            cursor: pointer;
+            transition: .4s;
+            color: #000;
+            border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn:hover {
+            background: #fff;
+            transform: scale(1.08);
+            box-shadow: 0 0 20px rgba(255, 165, 0, 0.6);
+        }
+
+        /* ===== SECTIONS ===== */
+        section {
+            padding: 90px 8%;
+        }
+
+        .title {
+            text-align: center;
+            margin-bottom: 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease;
+        }
+
+        .title.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .title h2 {
+            font-size: 42px;
+            color: #f4a300;
+            margin-bottom: 10px;
+        }
+
+        .title p {
+            color: #ccc;
+            max-width: 780px;
+            margin: 10px auto
+        }
+
+        /* ===== ABOUT ===== */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 45px;
+            align-items: center;
+        }
+
+        .about img {
+            border-radius: 15px;
+            transition: .5s;
+            width: 500px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            opacity: 0;
+            transform: translateX(-50px);
+            transition: all 0.8s ease;
+        }
+
+        .about img.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .about img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 0 25px rgba(255, 165, 0, 0.4);
+        }
+
+        .about-text p {
+            line-height: 1.9;
+            color: #ddd;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateX(50px);
+            transition: all 0.8s ease 0.2s;
+        }
+
+        .about-text p.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ===== SERVICES ===== */
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .service {
+            background: #151515;
+            padding: 35px;
+            border-radius: 15px;
+            transition: .4s;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid transparent;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .service.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .service:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 0 30px rgba(244, 163, 0, 0.2);
+            border-color: #f4a300;
+            background: #1f1f1f;
+        }
+
+        .service h3 {
+            color: #f4a300;
+            margin-bottom: 12px;
+            font-size: 22px;
+        }
+
+        .service p {
+            color: #aaa;
+        }
+
+        /* ===== PROCESS ===== */
+        .process {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .step {
+            background: #151515;
+            padding: 30px;
+            border-radius: 20px;
+            text-align: center;
+            transition: .4s;
+            border: 1px solid #333;
+        }
+
+        .step:hover {
+            background: #f4a300;
+            color: #000;
+            transform: scale(1.05);
+            border-color: #f4a300;
+        }
+
+        /* ===== PROJECTS ===== */
+        .projects {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+
+        .project-card {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            opacity: 0;
+            transform: scale(0.9);
+            transition: all 0.6s ease;
+        }
+
+        .project-card.active {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .projects img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: .5s;
+        }
+
+        .project-card:hover img {
+            transform: scale(1.1);
+            filter: brightness(0.7);
+        }
+
+        .project-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(244, 163, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: 0.4s;
+        }
+
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+
+        .project-overlay h3 {
+            color: #000;
+            font-size: 24px;
+            transform: translateY(20px);
+            transition: 0.4s;
+        }
+
+        .project-card:hover .project-overlay h3 {
+            transform: translateY(0);
+        }
+
+        /* ===== TEAM ===== */
+        .team {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 30px;
+        }
+
+        .member {
+            background: #151515;
+            padding: 20px;
+            border-radius: 20px;
+            text-align: center;
+            transition: .4s;
+        }
+
+        .member img {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 15px;
+            margin-bottom: 15px;
+            transition: 0.4s;
+        }
+
+        .member:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 0 25px #f4a300;
+        }
+
+        .member:hover img {
+            transform: scale(1.05);
+        }
+
+        /* ===== STATS ===== */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            text-align: center;
+        }
+
+        .stats div {
+            background: #151515;
+            padding: 30px;
+            border-radius: 20px;
+            transition: 0.3s;
+        }
+
+        .stats div:hover {
+            transform: translateY(-5px);
+            background: #1f1f1f;
+        }
+
+        .stats h3 {
+            font-size: 45px;
+            color: #f4a300;
+            font-weight: 700;
+        }
+
+        /* ===== TESTIMONIAL ===== */
+        .testimonial {
+            background: #151515;
+            padding: 45px;
+            border-radius: 25px;
+            text-align: center;
+            border: 1px solid #333;
+        }
+
+        /* ===== CONTACT ===== */
+        .contact {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+        }
+
+        input,
+        textarea {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 8px;
+            background: #151515;
+            border: 1px solid #333;
+            color: #fff;
+            transition: 0.3s;
+        }
+
+        input:focus,
+        textarea:focus {
+            border-color: #f4a300;
+            outline: none;
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #000;
+            text-align: center;
+            padding: 25px;
+            color: #aaa;
+            border-top: 1px solid #222;
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(60px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .fix {
+            position: fixed;
+            width: 60px;
+            height: 60px;
+            bottom: 20px;
+            right: 20px;
+            border-radius: 50%;
+            background-color: #25D366;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+            animation: pulse 2s infinite;
+        }
+
+        .fix i {
+            font-size: 32px;
+            color: white;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7);
+            }
+
+            70% {
+                transform: scale(1.1);
+                box-shadow: 0 0 0 20px rgba(37, 211, 102, 0);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 0 0 0 rgba(37, 211, 102, 0);
+            }
+        }
+
+        .cursor {
+            width: 40px;
+            height: 40px;
+            border: 2px solid orange;
+            border-radius: 50%;
+            position: fixed;
+            z-index: 100000;
+            pointer-events: none;
+            transition: 0.1s ease-out;
+            transform: translate(-50%, -50%);
+            display: none;
+            /* Hidden on mobile by default in JS logic usually, but CSS hides here if needed */
+        }
+
+        .cursor-dot {
+            width: 8px;
+            height: 8px;
+            background: orange;
+            border-radius: 50%;
+            position: fixed;
+            z-index: 100000;
+            pointer-events: none;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        /* ===== RESPONSIVE ===== */
+
+        /* Medium devices */
+        @media(max-width:900px) {
+
+            .about,
+            .contact {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            .services,
+            .projects,
+            .team,
+            .process,
+            .stats {
+                gap: 20px;
+            }
+        }
+
+        /* Small devices */
+        @media(max-width:768px) {
+            header {
+                padding: 0 20px;
+            }
+
+            #menuBtn {
+                display: block;
+                /* Show Menu Button */
+            }
+
+            nav ul {
+                position: absolute;
+                top: 70px;
+                /* Below header */
+                left: 0;
+                width: 100%;
+                background: #000000f0;
+                flex-direction: column;
+                align-items: center;
+                padding: 20px 0;
+                gap: 0;
+                transform: translateY(-150%);
+                transition: transform 0.4s ease-in-out;
+                backdrop-filter: blur(10px);
+                border-bottom: 1px solid #333;
+            }
+
+            nav ul.active {
+                transform: translateY(0);
+            }
+
+            nav ul li {
+                width: 90%;
+                text-align: center;
+            }
+
+            nav ul li a {
+                display: block;
+                padding: 15px 0;
+                border-bottom: 1px solid #222;
+            }
+
+            nav ul li a::after {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 35px;
+            }
+
+            .hero p {
+                font-size: 15px;
+            }
+
+            section {
+                padding: 60px 5%;
+            }
+
+            .title h2 {
+                font-size: 32px;
+            }
+
+            .title p {
+                font-size: 14px;
+            }
+
+            .cursor,
+            .cursor-dot {
+                display: none !important;
+                /* Hide custom cursor on mobile */
+            }
+
+            body {
+                cursor: auto;
+            }
+        }
+
+        @media(max-width:480px) {
+            .header {
+                min-height: 100vh;
+                justify-content: center;
+                text-align: center;
+            }
+
+            .hero h1 {
+                font-size: 28px;
+            }
+
+            .btn {
+                padding: 12px 30px;
+            }
+        }
+
+
+        /* ===== LOADER ===== */
+
+#loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #0b0b0b;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999999;
+}
+
+.loader-circle {
+    width: 60px;
+    height: 60px;
+    border: 5px solid rgba(255,255,255,0.1);
+    border-top: 5px solid orange;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Tablet */
+@media(max-width:900px){
+    .loader-circle{
+        width: 55px;
+        height: 55px;
+        border-width:5px;
+    }
+}
+
+/* Mobile */
+@media(max-width:480px){
+    .loader-circle{
+        width: 40px;
+        height: 40px;
+        border-width:4px;
+    }
+}
+
+
+    </style>
+</head>
+
+<body>
+<!-- Loader -->
+<div id="loader">
+    <div class="loader-circle"></div>
+</div>
+
+    <!-- Custom Cursor -->
+    <div class="cursor"></div>
+    <div class="cursor-dot"></div>
+
+    <!-- Header -->
+    <header>
+        <div class="logos">
+            <img class="logoo" src="logo (2).png" alt="Logo">
+            <h2>S.C.C</h2>
+        </div>
+
+        <nav>
+            <ul id="nav">
+                <li><a href="#">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#service">Services</a></li>
+                <li><a href="#project">Projects</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- Mobile Menu Button -->
+        <i class="fa-solid fa-bars" id="menuBtn"></i>
+    </header>
+
+    <!-- Hero Section -->
+    <div class="header">
+        <div class="hero">
+            <h1>Building Strength <br>& Trust</h1>
+            <p>
+                Construction delivers premium residential, commercial and
+                industrial construction projects using modern technology,
+                expert engineers and durable materials.
+            </p>
+            <a href="#contact"> <button class="btn">Get Free Consultation</button>
+            </a>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section id="about">
+        <div class="title">
+            <h2>About Construction</h2>
+            <p>Strong foundations for a stronger future</p>
+        </div>
+        <div class="about">
+            <img src="https://images.unsplash.com/photo-1590650153855-d9e808231d41" alt="About Us">
+            <div class="about-text">
+                <p>Construction is a trusted name in modern construction.</p>
+                <p>We focus on quality, safety, innovation and on-time delivery.</p>
+                <p>From design to final handover, we ensure perfection at every step.</p>
+                <a href="#more"> <button class="btn" style="margin-top: 20px;">Read More</button>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="service">
+        <div class="title">
+            <h2>Our Services</h2>
+        </div>
+        <div class="services">
+            <div class="service">
+                <i class="fa-solid fa-home" style="font-size: 30px; color: #f4a300; margin-bottom: 15px;"></i>
+                <h3>Residential Construction</h3>
+                <p>Luxury houses & villas built with precision and care.</p>
+            </div>
+            <div class="service">
+                <i class="fa-solid fa-building" style="font-size: 30px; color: #f4a300; margin-bottom: 15px;"></i>
+                <h3>Commercial Projects</h3>
+                <p>Plazas, offices & malls designed for business success.</p>
+            </div>
+            <div class="service">
+                <i class="fa-solid fa-industry" style="font-size: 30px; color: #f4a300; margin-bottom: 15px;"></i>
+                <h3>Industrial Construction</h3>
+                <p>Robust factories & warehouses tailored to needs.</p>
+            </div>
+            <div class="service">
+                <i class="fa-solid fa-hammer" style="font-size: 30px; color: #f4a300; margin-bottom: 15px;"></i>
+                <h3>Renovation</h3>
+                <p>Modern upgrades & remodeling to refresh your space.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Process Section -->
+    <section>
+        <div class="title" id="more">
+            <h2>Our Work Process</h2>
+        </div>
+        <div class="process">
+            <div class="step">
+                <h3>01. Planning</h3>
+            </div>
+            <div class="step">
+                <h3>02. Design</h3>
+            </div>
+            <div class="step">
+                <h3>03. Construction</h3>
+            </div>
+            <div class="step">
+                <h3>04. Delivery</h3>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="project">
+        <div class="title">
+            <h2>Recent Projects</h2>
+        </div>
+        <div class="projects">
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5">
+                <div class="project-overlay">
+                    <h3>Modern Villa</h3>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1523413651479-597eb2da0ad6">
+                <div class="project-overlay">
+                    <h3>Corporate Office</h3>
+                </div>
+            </div>
+            <div class="project-card">
+                <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c">
+                <div class="project-overlay">
+                    <h3>Luxury House</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section>
+        <div class="title">
+            <h2>Our Expert Team</h2>
+        </div>
+        <div class="team">
+            <div class="member">
+                <img src="abu.jpeg" alt="Manager">
+                <h4>Project Manager</h4>
+                <p>Lead Strategist</p>
+            </div>
+            <div class="member">
+                <img src="abu.jpeg" alt="Engineer">
+                <h4>Site Engineer</h4>
+                <p>Construction Head</p>
+            </div>
+            <div class="member">
+                <img src="abu.jpeg" alt="Architect">
+                <h4>Architect</h4>
+                <p>Design Expert</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section>
+        <div class="title">
+            <h2>Company Achievements</h2>
+        </div>
+        <div class="stats">
+            <div>
+                <h3 class="counter" data-target="856">0</h3>
+                <p>Projects</p>
+            </div>
+            <div>
+                <h3 class="counter" data-target="25">0</h3>
+                <p>Years Experience</p>
+            </div>
+            <div>
+                <h3 class="counter" data-target="200">0</h3>
+                <p>Expert Staff</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial Section -->
+    <section>
+        <div class="title">
+            <h2>Client Reviews</h2>
+        </div>
+        <div class="testimonial">
+            <p style="font-style: italic; font-size: 18px;">
+                "Construction exceeded our expectations with quality work,
+                timely delivery and professional management. Highly recommended!"
+            </p>
+            <h4 style="margin-top: 20px; color: #f4a300;">- Satisfied Client</h4>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact">
+        <div class="title">
+            <h2>Contact Us</h2>
+        </div>
+        <div class="contact">
+            <div>
+                <form id="contactForm">
+                    <input type="text" name="user_name" placeholder="Your Name" required>
+                    <input type="email" name="user_email" placeholder="Email" required>
+                    <textarea name="message" rows="5" placeholder="Message" required></textarea>
+                    <button type="submit" class="btn">Send Message</button>
+                </form>
+            </div>
+            <div style="line-height: 2.5;">
+                <h3 style="color: #f4a300; margin-bottom: 20px;">Get In Touch</h3>
+                <p>
+                    <i class="fa-solid fa-location-dot" style="color: #f4a300;"></i> City Hyderabad
+                </p>
+                <p>
+                    <i class="fa-solid fa-phone" style="color: #f4a300;"></i> +92 3003798570
+                </p>
+                <p>
+                    <i class="fa-solid fa-envelope" style="color: #f4a300;"></i> info@eliteconstruction.com
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- WhatsApp Button -->
+    <div class="fix">
+        <a href="https://wa.me/+923003798570?text=Welcome!%20To%20SiddiqueKhan%20Chats" target="_blank"
+            style="color: white;">
+            <i class="fa-brands fa-whatsapp"></i>
+        </a>
+    </div>
+
+    <footer>
+        © 2025 Siddique Construction | All Rights Reserved
+    </footer>
+
+    <script>
+        // 1. Mobile Menu Logic
+        const menuBtn = document.getElementById("menuBtn");
+        const navList = document.getElementById("nav");
+
+        menuBtn.addEventListener("click", () => {
+            navList.classList.toggle("active");
+            // Toggle Icon
+            if (navList.classList.contains("active")) {
+                menuBtn.classList.remove("fa-bars");
+                menuBtn.classList.add("fa-xmark");
+            } else {
+                menuBtn.classList.remove("fa-xmark");
+                menuBtn.classList.add("fa-bars");
+            }
+        });
+
+        // Close menu when link clicked
+        navList.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navList.classList.remove('active');
+                menuBtn.classList.remove("fa-xmark");
+                menuBtn.classList.add("fa-bars");
+            });
+        });
+
+        // 2. Form Submission
+        document.getElementById("contactForm").addEventListener("submit", function (e) {
+            e.preventDefault();
+            fetch('https://formspree.io/f/mnjbqaqj', {
+                method: 'POST',
+                body: new FormData(this)
+            });
+            alert("Form Successfully Sent ✅");
+            this.reset();
+        });
+
+        // 3. Custom Cursor
+        const cursor = document.querySelector(".cursor");
+        const dot = document.querySelector(".cursor-dot");
+
+        // Check if it's a touch device
+        if (window.innerWidth > 768) {
+            cursor.style.display = "block";
+            dot.style.display = "block";
+
+            document.addEventListener("mousemove", (e) => {
+                cursor.style.left = e.clientX + "px";
+                cursor.style.top = e.clientY + "px";
+                dot.style.left = e.clientX + "px";
+                dot.style.top = e.clientY + "px";
+            });
+
+            document.addEventListener("click", () => {
+                cursor.style.transform = "translate(-50%, -50%) scale(1.6)";
+                setTimeout(() => {
+                    cursor.style.transform = "translate(-50%, -50%) scale(1)";
+                }, 150);
+            });
+        }
+
+        // 4. Scroll Animation (Reveal on Scroll)
+        const revealElements = document.querySelectorAll('.title, .about img, .about-text p, .service, .project-card');
+
+        const revealOnScroll = () => {
+            const windowHeight = window.innerHeight;
+            revealElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const revealPoint = 150;
+
+                if (elementTop < windowHeight - revealPoint) {
+                    element.classList.add('active');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', revealOnScroll);
+        revealOnScroll(); // Run once on load
+
+        // 5. Counter Animation
+        const counters = document.querySelectorAll('.counter');
+        let speed = 200;
+
+        const runCounters = () => {
+            counters.forEach(counter => {
+                const rect = counter.getBoundingClientRect();
+                if (rect.top < window.innerHeight && !counter.classList.contains('counted')) {
+                    counter.classList.add('counted');
+                    const target = +counter.getAttribute('data-target');
+                    const updateCount = () => {
+                        const count = +counter.innerText;
+                        const inc = target / speed;
+                        if (count < target) {
+                            counter.innerText = Math.ceil(count + inc);
+                            setTimeout(updateCount, 10);
+                        } else {
+                            counter.innerText = target + '+';
+                        }
+                    };
+                    updateCount();
+                }
+            });
+        };
+
+        window.addEventListener('scroll', runCounters);
+        runCounters();
+
+
+
+            // Loader hide after 2 seconds
+window.addEventListener("load", function () {
+    setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+    }, 2000); // 2 seconds
+});
+    </script>
+
+
+
+</body>
+
+</html>
